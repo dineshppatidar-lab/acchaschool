@@ -1,0 +1,48 @@
+{
+  "results": [
+    {
+      "name": "A. restricted user bottom nav = Home + More while menu errors",
+      "ok": true,
+      "detail": "items=[\"Home\",\"More\"]"
+    },
+    {
+      "name": "B. menu API failure → More sheet shows error + retry, ZERO module cards",
+      "ok": true,
+      "detail": "cards=[] states=[false,true,true]"
+    },
+    {
+      "name": "B2. unauthorized modules NOT shown on API failure",
+      "ok": true
+    },
+    {
+      "name": "C. healthy restricted menu → bottom nav Home + Attendance + More",
+      "ok": true,
+      "detail": "items=[\"Home\",\"Attendance\",\"More\"]"
+    },
+    {
+      "name": "D. More sheet lists ONLY authorized modules (incl. nested child)",
+      "ok": true,
+      "detail": "cards=[\"Dashboard\",\"Attendance\",\"Mark Attendance\"]"
+    },
+    {
+      "name": "D2. unauthorized modules absent from More sheet",
+      "ok": true,
+      "detail": "Dashboard|Attendance|Mark Attendance"
+    },
+    {
+      "name": "E. module search filters within authorized set only",
+      "ok": true,
+      "detail": "cards=[\"Attendance\",\"Mark Attendance\"]"
+    },
+    {
+      "name": "F. after user switch, nav reflects the NEW user only (no stale items)",
+      "ok": true,
+      "detail": "items=[\"Home\",\"More\"]"
+    },
+    {
+      "name": "F2. More sheet after switch shows only new user's modules (Library)",
+      "ok": true,
+      "detail": "cards=[\"Dashboard\",\"Library\"]"
+    }
+  ]
+}

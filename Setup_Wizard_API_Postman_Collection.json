@@ -1,0 +1,330 @@
+{
+  "info": {
+    "_postman_id": "setup-wizard-api-collection",
+    "name": "Setup Wizard API",
+    "description": "Collection for testing School Management Setup Wizard REST API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Academic Years",
+      "item": [
+        {
+          "name": "Create Academic Year",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"2024-2025\",\n  \"startDate\": \"2024-04-01T00:00:00\",\n  \"endDate\": \"2025-03-31T23:59:59\",\n  \"isActive\": true,\n  \"isCurrent\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/academic-years",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "academic-years"]
+            },
+            "description": "Creates a new academic year for the school"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Academic Years",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/setup/academic-years",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "academic-years"]
+            },
+            "description": "Retrieves all academic years for the current tenant"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Classes",
+      "item": [
+        {
+          "name": "Create Classes",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academicYearId\": 1,\n  \"classes\": [\n    {\n      \"name\": \"10-A\",\n      \"capacity\": 45,\n      \"classTeacherId\": null\n    },\n    {\n      \"name\": \"10-B\",\n      \"capacity\": 42,\n      \"classTeacherId\": null\n    },\n    {\n      \"name\": \"9-A\",\n      \"capacity\": 40,\n      \"classTeacherId\": null\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/classes",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "classes"]
+            },
+            "description": "Creates multiple classes for an academic year"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Subjects",
+      "item": [
+        {
+          "name": "Create Subjects",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"classId\": 1,\n  \"subjects\": [\n    {\n      \"name\": \"Mathematics\",\n      \"code\": \"MATH101\",\n      \"creditHours\": 4\n    },\n    {\n      \"name\": \"English\",\n      \"code\": \"ENG101\",\n      \"creditHours\": 3\n    },\n    {\n      \"name\": \"Science\",\n      \"code\": \"SCI101\",\n      \"creditHours\": 4\n    },\n    {\n      \"name\": \"Social Studies\",\n      \"code\": \"SS101\",\n      \"creditHours\": 3\n    },\n    {\n      \"name\": \"Physical Education\",\n      \"code\": \"PE101\",\n      \"creditHours\": 2\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/subjects",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "subjects"]
+            },
+            "description": "Creates multiple subjects for a class"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Staff",
+      "item": [
+        {
+          "name": "Create Staff Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@school.com\",\n  \"phoneNumber\": \"+91-9876543210\",\n  \"position\": \"Mathematics Teacher\",\n  \"gender\": \"Male\",\n  \"dateOfBirth\": \"1990-05-15T00:00:00\",\n  \"hireDate\": \"2024-04-01T00:00:00\",\n  \"qualification\": \"B.Sc (Mathematics), B.Ed\",\n  \"address\": \"123 Main Street, City\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/staff-structure/setup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "staff-structure", "setup"]
+            },
+            "description": "Creates a new staff member (optional step)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Fee Structure",
+      "item": [
+        {
+          "name": "Create Fee Structure",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academicYearId\": 1,\n  \"classId\": 1,\n  \"effectiveDate\": \"2024-04-01T00:00:00\",\n  \"feeComponents\": [\n    {\n      \"feeName\": \"Tuition Fee\",\n      \"amount\": 5000,\n      \"frequency\": \"Monthly\"\n    },\n    {\n      \"feeName\": \"Exam Fee\",\n      \"amount\": 500,\n      \"frequency\": \"Monthly\"\n    },\n    {\n      \"feeName\": \"Library Fee\",\n      \"amount\": 250,\n      \"frequency\": \"Monthly\"\n    },\n    {\n      \"feeName\": \"Sports Fee\",\n      \"amount\": 200,\n      \"frequency\": \"Monthly\"\n    },\n    {\n      \"feeName\": \"Lab Fee\",\n      \"amount\": 300,\n      \"frequency\": \"Monthly\"\n    },\n    {\n      \"feeName\": \"Technology Fee\",\n      \"amount\": 150,\n      \"frequency\": \"Monthly\"\n    },\n    {\n      \"feeName\": \"Activities Fee\",\n      \"amount\": 100,\n      \"frequency\": \"Monthly\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/fees/structure/setup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "fees", "structure", "setup"]
+            },
+            "description": "Creates fee structure with multiple components"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Fee Installments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"feeStructureId\": 1,\n  \"numberOfInstallments\": 12,\n  \"installmentDates\": [\n    \"2024-04-30T00:00:00\",\n    \"2024-05-31T00:00:00\",\n    \"2024-06-30T00:00:00\",\n    \"2024-07-31T00:00:00\",\n    \"2024-08-31T00:00:00\",\n    \"2024-09-30T00:00:00\",\n    \"2024-10-31T00:00:00\",\n    \"2024-11-30T00:00:00\",\n    \"2024-12-31T00:00:00\",\n    \"2025-01-31T00:00:00\",\n    \"2025-02-28T00:00:00\",\n    \"2025-03-31T00:00:00\"\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/fees/installments/setup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "fees", "installments", "setup"]
+            },
+            "description": "Creates fee installments for the fee structure"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment Methods",
+      "item": [
+        {
+          "name": "Create Payment Methods",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentMethods\": [\n    {\n      \"methodName\": \"Cash\",\n      \"isActive\": true\n    },\n    {\n      \"methodName\": \"Bank Transfer\",\n      \"isActive\": true\n    },\n    {\n      \"methodName\": \"Cheque\",\n      \"isActive\": true\n    },\n    {\n      \"methodName\": \"Online Payment\",\n      \"isActive\": true\n    },\n    {\n      \"methodName\": \"Credit Card\",\n      \"isActive\": true\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/payment-methods/setup",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "payment-methods", "setup"]
+            },
+            "description": "Creates payment methods (optional step)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Setup Validation & Completion",
+      "item": [
+        {
+          "name": "Validate Setup Progress",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/setup/validate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "validate"]
+            },
+            "description": "Validates current setup progress and returns status of each component"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Setup Checklist",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/setup/checklist",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "checklist"]
+            },
+            "description": "Gets setup checklist with progress percentage"
+          },
+          "response": []
+        },
+        {
+          "name": "Mark Setup Complete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"completionNotes\": \"Initial setup completed by admin user\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/setup/complete",
+              "host": ["{{base_url}}"],
+              "path": ["api", "setup", "complete"]
+            },
+            "description": "Marks setup as complete (only if all 4 required steps are done)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://localhost:5001",
+      "type": "string"
+    },
+    {
+      "key": "jwt_token",
+      "value": "your_jwt_token_here",
+      "type": "string"
+    }
+  ]
+}

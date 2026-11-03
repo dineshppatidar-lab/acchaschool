@@ -1,0 +1,59 @@
+{
+  "perRoute": [
+    {
+      "route": "/app/dashboard",
+      "finalUrl": "/app/dashboard",
+      "navExists": true,
+      "visible": true,
+      "display": "block",
+      "w": 412,
+      "h": 56
+    },
+    {
+      "route": "/app/students/full-details",
+      "finalUrl": "/app/students/full-details",
+      "navExists": true,
+      "visible": true,
+      "display": "block",
+      "w": 412,
+      "h": 56
+    },
+    {
+      "route": "/app/fees/dashboard",
+      "finalUrl": "/app/fees/dashboard",
+      "navExists": true,
+      "visible": true,
+      "display": "block",
+      "w": 412,
+      "h": 56
+    },
+    {
+      "route": "/app/attendance",
+      "finalUrl": "/app/attendance",
+      "navExists": true,
+      "visible": true,
+      "display": "block",
+      "w": 412,
+      "h": 56
+    },
+    {
+      "route": "/app/communication",
+      "finalUrl": "/app/communication",
+      "navExists": true,
+      "visible": true,
+      "display": "block",
+      "w": 412,
+      "h": 56
+    },
+    {
+      "route": "/app/settings",
+      "finalUrl": "/app/settings",
+      "navExists": true,
+      "visible": true,
+      "display": "block",
+      "w": 412,
+      "h": 56
+    }
+  ],
+  "consoleErrors": []
+}

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SystemArchitecture.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%F0%9F%93%98-full-system-architecture-document-school-management-system">📘 Full System Architecture Document: School Management System</h1>
+<h2 id="%F0%9F%A7%B1-1-project-overview">🧱 1. Project Overview</h2>
+<p><strong>Purpose of the System</strong>
+The School Management System is a comprehensive, multi-tenant enterprise application designed to streamline and automate the administrative, academic, financial, and communicative operations of educational institutions.</p>
+<p><strong>Target Users</strong></p>
+<ul>
+<li><strong>System Administrators:</strong> Global management, tenant creation, and cross-school analytics.</li>
+<li><strong>School Administrators:</strong> School-level configuration, user management, and master data setup.</li>
+<li><strong>Teachers/Academics:</strong> Grade management, attendance, curriculum planning, and student evaluations.</li>
+<li><strong>Staff (Finance/Transport/HR):</strong> Fee collection, payroll processing, transport management, and inventory control.</li>
+<li><strong>Students/Parents:</strong> Access to academic records, fee dues, announcements, and communication hubs.</li>
+</ul>
+<p><strong>Key Modules</strong></p>
+<ul>
+<li><strong>Core Management:</strong> Student directory, admissions, and analytics.</li>
+<li><strong>Academic Hub:</strong> Curriculum planning, class scheduling, assessments, and grade management.</li>
+<li><strong>Communication Hub:</strong> Messaging, announcements, event management, and broadcast system.</li>
+<li><strong>Finance &amp; Operations:</strong> Fee management, payment processing, budget planning, and expenses.</li>
+<li><strong>Resources &amp; Facilities:</strong> Transport, hostel, digital library, and inventory.</li>
+<li><strong>System Administration:</strong> User management, RBAC (Role-Based Access Control), and multi-tenant configurations.</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%8F%97%EF%B8%8F-2-high-level-architecture">🏗️ 2. High-Level Architecture</h2>
+<p>The system utilizes a <strong>Modern 3-Tier Architecture</strong> integrated with <strong>Clean Architecture principles</strong> on the backend to ensure scalability, maintainability, and clear separation of concerns.</p>
+<h3 id="architecture-layers">Architecture Layers</h3>
+<ol>
+<li><strong>Presentation Layer (Frontend):</strong> Angular (Standalone Components, Material UI) handling the user interface, client-side routing, and state.</li>
+<li><strong>Application / API Layer (Backend):</strong> .NET Core Web API serving as the central gateway, handling HTTP requests, authentication, and routing requests to the business logic.</li>
+<li><strong>Data Layer (Database):</strong> SQL Server managing persistent, relational data with enforced tenant-level isolation.</li>
+</ol>
+<pre><code class="language-mermaid"><div class="mermaid">graph TD
+    subgraph Client Tier
+        UI[Angular SPA Web App]
+    end
+
+    subgraph Application Tier
+        API[".NET Core Web API"]
+        Auth[Identity & JWT Provider]
+        Logic[Business Logic & Services]
+        API --> Auth
+        API --> Logic
+    end
+
+    subgraph Data Tier
+        DB[(SQL Server Database)]
+        Cache[(Redis/In-Memory Cache)]
+    end
+
+    UI <-->|HTTPS / REST| API
+    Logic <-->|EF Core / LINQ| DB
+    Logic <-->|Read/Write| Cache
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%96%A5%EF%B8%8F-3-frontend-architecture-angular">🖥️ 3. Frontend Architecture (Angular)</h2>
+<p>The frontend is built using <strong>Angular</strong> with a modernized standalone component architecture and Angular Material for UI components.</p>
+<p><strong>Structure &amp; Folder Design</strong></p>
+<ul>
+<li><code>/core</code>: Singleton services (Auth, Tenant, Interceptors), guards, and globally shared interfaces.</li>
+<li><code>/shared</code>: Reusable UI components (TopSubnav, Sidebar), pipes, and directives.</li>
+<li><code>/layout</code>: Main layout wrappers (<code>main-layout.component</code>) determining structural scaffolding.</li>
+<li><code>/features</code> or <code>/app</code>: Domain-specific modules (e.g., <code>students/</code>, <code>academic/</code>, <code>communication/</code>, <code>finance/</code>).</li>
+</ul>
+<p><strong>Key Concepts</strong></p>
+<ul>
+<li><strong>Routing &amp; Lazy Loading:</strong> Components are highly modular and lazily loaded (e.g., <code>/app/students</code> loads only when accessed).</li>
+<li><strong>State Management:</strong> State is managed locally within services via <code>RxJS BehaviorSubjects</code> (e.g., <code>SidebarService</code>, <code>SubnavService</code>, <code>AuthService</code>, <code>TenantService</code>).</li>
+<li><strong>Dynamic UI &amp; Navigation:</strong> Navigation items and badges react dynamically based on real-time changes and user roles.</li>
+</ul>
+<p><strong>Security &amp; Interceptors</strong></p>
+<ul>
+<li><strong>Authentication (JWT):</strong> The <code>AuthService</code> handles authentication logic, while HTTP Interceptors append bearer tokens to outgoing API requests.</li>
+<li><strong>Permission Guards:</strong> Angular <code>CanActivate</code> guards protect routes based on the current user's role and feature permissions.</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%A7%B1-4-backend-architecture-net-core">🧱 4. Backend Architecture (.NET Core)</h2>
+<p>The backend implements <strong>Clean Architecture</strong>, promoting the Separation of Concerns and Dependency Inversion.</p>
+<p><strong>Structure &amp; Pattern</strong></p>
+<ul>
+<li><strong>Core / Domain Layer:</strong> Contains core entities, interfaces, value objects, and business rules (e.g., <code>Student</code>, <code>Fee</code>, <code>Tenant</code>).</li>
+<li><strong>Application Layer:</strong> Contains business logic (Use Cases), CQRS (if MediatR is used), DTOs, Mapping profiles, and FluentValidation rules.</li>
+<li><strong>Infrastructure Layer:</strong> Implements data access (Entity Framework Core), repositories, identity management, external APIs (e.g., Email services).</li>
+<li><strong>Presentation / API Layer:</strong> Web API Controllers that handle HTTP requests and responses, injecting Application layer interfaces.</li>
+</ul>
+<p><strong>Key Features</strong></p>
+<ul>
+<li><strong>Validation:</strong> Input validation handled entirely by <code>FluentValidation</code> piped through the application layer.</li>
+<li><strong>Middleware Pipeline:</strong> Global Exception Handler, Logging (Serilog/NLog), Tenant Context Resolver.</li>
+<li><strong>Generic Repositories:</strong> Repository pattern abstracting EF Core contexts.</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%97%84%EF%B8%8F-5-database-architecture-sql-server">🗄️ 5. Database Architecture (SQL Server)</h2>
+<p>The database schema is highly relational, enforcing referential integrity and tracking state globally via foreign keys.</p>
+<p><strong>Core Tables &amp; Domains</strong></p>
+<ul>
+<li><code>Tenants</code> (Global table storing school profiles, subscription status, and tenant codes).</li>
+<li><code>Users</code>, <code>Roles</code>, <code>UserRoles</code>, <code>Permissions</code> (Security and Identity tables).</li>
+<li><code>Students</code>, <code>Staff</code>, <code>Classes</code>, <code>Subjects</code> (Core Academic/Management Tables).</li>
+<li><code>Fees</code>, <code>Payments</code>, <code>Invoices</code> (Financial tracking).</li>
+</ul>
+<p><strong>Multi-Tenant Implementation</strong></p>
+<ul>
+<li><strong>Strategy used:</strong> Single Database, Shared Schema.</li>
+<li><strong>Isolation Method:</strong> A mandatory <code>TenantId</code> column exists on nearly all operational tables (<code>Students</code>, <code>Fees</code>, <code>Staff</code>, etc.).</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%94%90-6-roles--permissions-system">🔐 6. Roles &amp; Permissions System</h2>
+<p>The system enforces granular <strong>Role-Based Access Control (RBAC)</strong> integrated closely with the multi-tenant architecture.</p>
+<p><strong>How it Works:</strong></p>
+<ul>
+<li><strong>Storage:</strong> The database links <code>Users</code> to <code>Roles</code> (e.g., Administrator, Teacher, Student). Roles map to specific <code>Permissions</code> (e.g., <code>Students.Create</code>, <code>Fees.View</code>).</li>
+<li><strong>Backend Validation:</strong> .NET API Endpoints are protected via custom <code>[Authorize(Policy = &quot;Permissions&quot;)]</code> attributes or manual claim checks inside service logic.</li>
+<li><strong>Frontend Rendering:</strong> The Angular app checks the active user's permissions array in their JWT token. Elements (like the Add Student button or Administration menu) are conditionally rendered using custom structural directives (e.g., <code>*appHasPermission=&quot;'Students.Add'&quot;</code>).</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%8F%A2-7-multi-tenant-architecture">🏢 7. Multi-Tenant Architecture</h2>
+<p>This architecture supports hundreds of schools using the same codebase and infrastructure, seamlessly separated.</p>
+<p><strong>Data Isolation Strategy</strong></p>
+<ul>
+<li><strong>Tenant Selection:</strong> Handled dynamically via the <code>TenantService</code> in the frontend (<code>selectedTenantId</code>), often parsed from user profiles.</li>
+<li><strong>Context Flow:</strong> The frontend passes the <code>TenantId</code> either via a sub-domain, route parameter, or an <code>X-Tenant-Id</code> HTTP header via Interceptors.</li>
+<li><strong>Backend Enforcement:</strong> The <code>.NET Core API</code> pipeline utilizes a custom Middleware (<code>TenantResolverMiddleware</code>) to read the header and inject the <code>ITenantProvider</code> scoped service.</li>
+<li><strong>EF Core Global Query Filters:</strong> To prevent data leaks, EF Core intercepts all queries and automatically appends <code>WHERE TenantId = @currentTenant</code> to entities using global query filters.</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%94%97-8-api--data-flow">🔗 8. API &amp; Data Flow</h2>
+<p><strong>Standard End-to-End Flow (UI → API → Database → UI)</strong></p>
+<pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
+    participant User
+    participant Angular UI
+    participant .NET Controller
+    participant App Service
+    participant Database
+
+    User->>Angular UI: Clicks "Add Student"
+    Angular UI->>Angular UI: Validates Form
+    Angular UI->>.NET Controller: POST /api/students (JWT + TenantId Header)
+    .NET Controller->>App Service: DTO parsed, calls App Layer
+    App Service->>App Service: FluentValidation checks DTO
+    App Service->>Database: EF Core INSERT (injecting TenantId)
+    Database-->>App Service: Returns ID
+    App Service-->>.NET Controller: Maps to Response DTO
+    .NET Controller-->>Angular UI: 201 Created (Success JSON)
+    Angular UI-->>User: Displays Toast / Re-fetches List
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%A7%AD-9-dynamic-menu--navigation">🧭 9. Dynamic Menu &amp; Navigation</h2>
+<p>The frontend navigation structure is engineered to be context-aware and role-responsive.</p>
+<ul>
+<li><strong>Sidebar/Subnav Architecture:</strong> A central <code>main-layout.component</code> controls the global UI framework (<code>SidebarComponent</code>, <code>TopSubnavComponent</code>).</li>
+<li><strong>State-driven Rendering:</strong> Using <code>SidebarService</code> and <code>SubnavService</code>, the UI knows exactly what screen size the user is on (via <code>BreakpointObserver</code>) and toggles sidebars (<code>MatSidenav</code>) automatically.</li>
+<li><strong>Dynamic Badges:</strong> Communication modules (Messages, Notifications) display real-time counters mapped to state variables.</li>
+<li><strong>Search &amp; Filter:</strong> The menu contains an integrated real-time filtering mechanism based on search strings.</li>
+</ul>
+<hr>
+<h2 id="%E2%9A%A1-10-performance--optimization">⚡ 10. Performance &amp; Optimization</h2>
+<ul>
+<li><strong>Frontend (Angular):</strong>
+<ul>
+<li><code>ChangeDetectionStrategy.OnPush</code> utilized where applicable.</li>
+<li>Strict lazy loading of feature modules.</li>
+</ul>
+</li>
+<li><strong>Backend (.NET Core):</strong>
+<ul>
+<li>Asynchronous controllers and services (<code>async</code>/<code>await</code>).</li>
+<li>EF Core queries optimized using <code>AsNoTracking()</code> for read-only operations.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="%F0%9F%A7%AA-11-error-handling--validation">🧪 11. Error Handling &amp; Validation</h2>
+<p><strong>Standard API Response Wrapper</strong>
+All API endpoints return a standardized JSON structure ensuring the frontend can reliably map results or parse errors.</p>
+<ul>
+<li><strong>FluentValidation:</strong> Used in the Application Layer. If validation fails, an Exception is thrown and caught by Middleware, automatically formatting the <code>errors</code> array.</li>
+<li><strong>Global Exception Handling:</strong> A centralized middleware catches HTTP errors and 500s, preventing raw stack traces from reaching the client while logging to Serilog.</li>
+</ul>
+
+</body>
+</html>
